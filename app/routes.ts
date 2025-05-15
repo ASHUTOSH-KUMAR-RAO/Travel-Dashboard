@@ -11,6 +11,7 @@ export default [
       "all-users",  // path as first argument
       "routes/admin/all-users.tsx"  // file as second argument
     )
+   
   ])
 
 ] satisfies RouteConfig;

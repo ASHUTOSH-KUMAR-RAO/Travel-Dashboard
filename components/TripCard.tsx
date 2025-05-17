@@ -1,8 +1,54 @@
+import { Link, useLocation } from "react-router";
+import { ChipDirective, ChipListComponent, ChipsDirective } from "@syncfusion/ej2-react-buttons";
+import { getFirstWord } from "~/lib/utils";
 
-const TripCard = () => {
+const TripCard = ({
+  id,
+  name,
+  imageUrl,
+  itinerary,
+  tags,
+  travelStyle,
+  price,
+  location,
+}: TripCardProps) => {
+  const path = useLocation();
   return (
-    <div>TripCard</div>
-  )
-}
+    <Link
+      to={
+        path.pathname === "/" || path.pathname.startsWith("/travel")
+          ? `/travel/${id}`
+          : `/trips/${id}`
+      }
+      className="trip-card"
+    >
+      <img src={imageUrl} alt={name} />
+      <article>
+        {name}
+        <figure>
+          <img
+            src="/assets/icons/location-mark.svg"
+            alt="location "
+            className="size-4"
+          />
+          <figcaption>{location}</figcaption>
+        </figure>
+      </article>
 
-export default TripCard
+      <div className="mt-5 pl-[18px] pr-3.5 pb-5">
+        <ChipListComponent id="travel-chip">
+        <ChipsDirective>
+          {tags.map((tag,index)=>(
+              <ChipDirective
+              key={index}
+              text={getFirstWord(tag)}
+              />
+          ))}
+        </ChipsDirective>
+        </ChipListComponent>
+      </div>
+    </Link>
+  );
+};
+
+export default TripCard;
